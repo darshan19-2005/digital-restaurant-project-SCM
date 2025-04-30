@@ -111,5 +111,64 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 }
+                           #Cart Page
+
+
+
+
+
+
+
+
+
+
+
+
+
+			   import 'package:flutter/material.dart';
+import '../models/food_item.dart';
+
+class CartPage extends StatelessWidget {
+  final List<FoodItem> cart;
+
+  CartPage({required this.cart});
+
+  @override
+  Widget build(BuildContext context) {
+    double total = cart.fold(0, (sum, item) => sum + item.price);
+
+    return Scaffold(
+      appBar: AppBar(title: Text("Your Cart")),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cart.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(cart[index].name),
+                  trailing: Text("\$${cart[index].price.toStringAsFixed(2)}"),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text("Total: \$${total.toStringAsFixed(2)}",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Order placed successfully!')),
+              );
+            },
+            child: Text('Place Order'),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 
