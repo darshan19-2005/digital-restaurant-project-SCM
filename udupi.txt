@@ -24,4 +24,29 @@ class RestaurantApp extends StatelessWidget {
 
   FoodItem({required this.name, required this.price});
 }
+                                  
+
+				  #Home Page
+				  import 'package:flutter/material.dart';
+import 'menu_page.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Welcome to Flutter Bistro')),
+      body: Center(
+        child: ElevatedButton(
+          child: Text("View Menu"),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MenuPage()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
 
