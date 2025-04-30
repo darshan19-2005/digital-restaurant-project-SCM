@@ -48,5 +48,68 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+} 
+                                                            #Menu Page
+
+
+
+
+                                                             import 'package:flutter/material.dart';
+import '../models/food_item.dart';
+import 'cart_page.dart';
+
+class MenuPage extends StatefulWidget {
+  @override
+  _MenuPageState createState() => _MenuPageState();
 }
+
+class _MenuPageState extends State<MenuPage> {
+  List<FoodItem> menu = [
+    FoodItem(name: "Pizza", price: 8.99),
+    FoodItem(name: "Burger", price: 5.99),
+    FoodItem(name: "Pasta", price: 7.99),
+  ];
+
+  List<FoodItem> cart = [];
+
+  void addToCart(FoodItem item) {
+    setState(() {
+      cart.add(item);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Menu"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartPage(cart: cart)),
+              );
+            },
+          )
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: menu.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(menu[index].name),
+            subtitle: Text("\$${menu[index].price.toStringAsFixed(2)}"),
+            trailing: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => addToCart(menu[index]),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
 
